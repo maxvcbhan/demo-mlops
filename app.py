@@ -1,9 +1,17 @@
 from flask import Flask, request, jsonify
-
 import pandas as pd
 from sklearn.externals import joblib
 from sklearn.preprocessing import StandardScaler
+from flask import Flask, request, jsonify
+import torch
+import numpy as np
+from transformers import RobertaTokenizer
+import onnxruntime
 
+
+tokenizer = RobertaTokenizer.from_pretrained("roberta-base")
+session = onnxruntime.InferenceSession(
+	"roberta-sequence-classification-9.onnx")
 app = Flask(__name__)
 
 def scale(payload):
